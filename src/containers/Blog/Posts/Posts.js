@@ -11,45 +11,44 @@ class Posts extends Component {
         posts: []
     }
 
-    componentDidMount () {
-        console.log( this.props );
-        axios.get( '/posts' )
-            .then( response => {
-                const posts = response.data.slice( 0, 4 );
-                const updatedPosts = posts.map( post => {
+    componentDidMount() {
+        axios.get('/posts')
+            .then(response => {
+                const posts = response.data.slice(0, 4);
+                const updatedPosts = posts.map(post => {
                     return {
                         ...post,
                         author: 'Max'
                     }
-                } );
-                this.setState( { posts: updatedPosts } );
+                });
+                this.setState({ posts: updatedPosts });
                 // console.log( response );
-            } )
-            .catch( error => {
-                console.log( error );
+            })
+            .catch(error => {
+                console.log(error);
                 // this.setState({error: true});
-            } );
+            });
     }
 
-    postSelectedHandler = ( id ) => {
+    postSelectedHandler = (id) => {
         // this.props.history.push({pathname: '/posts/' + id});
-        this.props.history.push( '/posts/' + id );
+        this.props.history.push({ pathname: '/posts/' + id });
     }
 
-    render () {
+    render() {
         let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
-        if ( !this.state.error ) {
-            posts = this.state.posts.map( post => {
+        if (!this.state.error) {
+            posts = this.state.posts.map(post => {
                 return (
                     // <Link to={'/posts/' + post.id} key={post.id}>
                     <Post
                         key={post.id}
                         title={post.title}
                         author={post.author}
-                        clicked={() => this.postSelectedHandler( post.id )} />
+                        clicked={() => this.postSelectedHandler(post.id)} />
                     // </Link>
                 );
-            } );
+            });
         }
 
         return (
