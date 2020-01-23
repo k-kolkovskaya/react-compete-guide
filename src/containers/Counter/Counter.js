@@ -27,19 +27,26 @@ class Counter extends Component {
     }
 
     render() {
+        console.log(this.state.counter);
         return (
             <div>
-                <CounterOutput value={this.props.str} />
+                <CounterOutput value={this.props.ctr} />
                 <CounterControl label="Increment" clicked={this.props.onIcrementCounter} />
-                <CounterControl label="Decrement" clicked={() => this.counterChangedHandler('dec')} />
-                <CounterControl label="Add 5" clicked={() => this.counterChangedHandler('add', 5)} />
-                <CounterControl label="Subtract 5" clicked={() => this.counterChangedHandler('sub', 5)} />
+                <CounterControl label="Decrement" clicked={this.props.onDecrementCounter} />
+                <CounterControl label="Add 5" clicked={this.props.onAddValueCounter} />
+                <CounterControl label="Subtract 5" clicked={this.props.onSubstractValueCounter} />
+                <hr />
+                <button>Store Result</button>
+                <ul>
+                    <li></li>
+                </ul>
             </div>
         );
     }
 }
 
 const mapStateToProps = state => {
+    console.log(state);
     return {
         ctr: state.counter
     };
@@ -47,7 +54,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIcrementCounter: () => dispatch({ type: "INCREMENT" })
+        onIcrementCounter: () => dispatch({ type: "INCREMENT" }),
+        onDecrementCounter: () => dispatch({ type: "DECREMENT" }),
+        onAddValueCounter: () => dispatch({ type: "ADD", value: 5 }),
+        onSubstractValueCounter: () => dispatch({ type: "SUBSTRACT", value: 5 }),
+        onSubstractValueCounter: () => dispatch({ type: "SUBSTRACT", value: 5 }),
+        onStoreResult: () => dispatch({ type: "STORE_RESULT" }),
     }
 };
 
